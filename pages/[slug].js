@@ -1,18 +1,16 @@
-import TeamLayout from "../../layouts/TeamLayout";
+import TeamLayout from "../layouts/TeamLayout";
 import axios from "axios";
-import TEAMS from "../../constants/teams";
-import { api_key } from "../../keys";
+import TEAMS from "../constants/teams";
+import { api_key } from "../keys";
 
 export default function Child(props) {
   return <TeamLayout color={props.color} data={props} />;
 }
 
 export async function getServerSideProps(context) {
-  let team = TEAMS[context.query.slug].city;
-  let color = TEAMS[context.query.slug].color;
   var options = {
     method: "GET",
-    url: `https://api-nba-v1.p.rapidapi.com/teams/city/${team}`,
+    url: `https://api-nba-v1.p.rapidapi.com/teams/city/${context.query.slug}`,
     headers: {
       "x-rapidapi-key": api_key,
       "x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
@@ -28,5 +26,5 @@ export async function getServerSideProps(context) {
     .catch(function (error) {
       console.error(error);
     });
-  return { props: { props, color } };
+  return { props: { props } };
 }

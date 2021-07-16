@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Link from "next/link";
+import TEAMS from "../../constants/teams";
 
 const DropdownMenu = ({ list, title }) => {
   const [visible, setVisible] = useState(false);
 
   const openList = list.map((item) => (
     <li key={item[0]} className="cursor-pointer">
-      <Link href={`/team/${item}`}>{item}</Link>
+      <Link href={`/${TEAMS[item].city}`}>{item}</Link>
     </li>
   ));
 
